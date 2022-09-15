@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: msa
+---
+kafka:
+  bootstrap-servers:
+    - yourbootstrap.server.url:port
+  security-protocol: SASL_SSL
+  sasl:
+    jaas-user: {PUT YOUR JAAS USERNAME HERE - OR INJECT FROM ENV VAR}
+    jaas-password: {PUT YOUR JAAS PASSWORD HERE - OR INJECT FROM ENV VAR}
+    mechanism: PLAIN
+  schema-registry-servers:
+    - http://your.schema-registry.url
+  # IF YOUR SCHEMA REGISTRY IS SECURED - BASIC AUTH TOKEN GOES HERE.
+  # IF NOT SECURED - YOU WILL WANT TO REMOVE THE USER-INFO AND CREDENTIAL-SOURCE CONFIGS FROM KafkaConfig.java
+  schema-registry-user-info: {PUT BASIC AUTH TOKEN FOR SCHEMA REG HERE - OR INJECT FROM ENV VAR - IF SHCHEMA REG NOT SECURED, LEAVE OUT }
+  application-id: msa-demo-app
+---
+application:
+  input-topic: movie_ticket_sales
+  output-topic: movie_figures_by_year

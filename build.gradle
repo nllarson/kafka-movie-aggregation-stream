@@ -1,0 +1,57 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'com.github.davidmc24.gradle.plugin.avro' version '1.4.0'
+	id 'io.freefair.lombok' version '6.5.1'
+	id 'java'
+	id 'idea'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://packages.confluent.io/maven/"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
+
+	implementation "org.apache.avro:avro:1.11.0"
+	implementation "org.slf4j:slf4j-simple:2.0.0"
+
+	implementation "org.apache.kafka:kafka-clients:3.2.1"
+	implementation "org.apache.kafka:kafka-streams:3.2.1"
+	implementation "io.confluent:kafka-streams-avro-serde:7.2.1"
+	implementation "io.confluent:kafka-avro-serializer:7.2.1"
+	implementation "io.confluent:kafka-schema-registry-client:7.2.1"
+
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+	implementation "org.glassfish:jakarta.el:4.0.2"
+
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	testImplementation "junit:junit:4.13.2"
+	testImplementation 'org.hamcrest:hamcrest:2.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
